@@ -27,9 +27,20 @@ locals {
   managed_node_group_cpu = {
     node_group_name = "managed-ondemand-cpu"
     instance_types  = [var.node_instance_type]
-    min_size        = 5
-    desired_size    = 5
-    max_size        = 10
+    min_size        = 1
+    desired_size    = 1
+    max_size        = 3
+    disk_size       = var.node_disk_size_cpu
+    subnet_ids      = module.vpc.private_subnets
+  }
+
+  managed_node_group_cpu_spot = {
+    node_group_name = "managed-spot-cpu"
+    instance_types  = [var.node_instance_type]
+    capacity_type   = "SPOT"
+    min_size        = 1
+    desired_size    = 1
+    max_size        = 3
     disk_size       = var.node_disk_size_cpu
     subnet_ids      = module.vpc.private_subnets
   }
@@ -46,8 +57,7 @@ locals {
   } : null
 
   potential_managed_node_groups = {
-    mg_cpu = local.managed_node_group_cpu,
-    mg_gpu = local.managed_node_group_gpu
+    mg_cpu_spot = local.managed_node_group_cpu_spot
   }
 
   managed_node_groups = { for k, v in local.potential_managed_node_groups : k => v if v != null }
