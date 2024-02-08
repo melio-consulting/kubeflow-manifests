@@ -13,7 +13,7 @@ locals {
 
   available_azs = local.using_gpu ? tolist(setintersection(local.available_azs_cpu, local.available_azs_gpu)) : tolist(local.available_azs_cpu)
 
-  az_count = min(length(local.available_azs), 3)
+  az_count = min(length(local.available_azs), 2)
   azs      = slice(local.available_azs, 0, local.az_count)
 
   tags = {
@@ -39,8 +39,8 @@ locals {
     instance_types  = [var.node_instance_type]
     capacity_type   = "SPOT"
     min_size        = 1
-    desired_size    = 1
-    max_size        = 3
+    desired_size    = 3
+    max_size        = 4
     disk_size       = var.node_disk_size_cpu
     subnet_ids      = module.vpc.private_subnets
   }
@@ -57,7 +57,10 @@ locals {
   } : null
 
   potential_managed_node_groups = {
+    mg_cpu = local.managed_node_group_cpu,
+    mg_gpu = local.managed_node_group_gpu
     mg_cpu_spot = local.managed_node_group_cpu_spot
+
   }
 
   managed_node_groups = { for k, v in local.potential_managed_node_groups : k => v if v != null }
