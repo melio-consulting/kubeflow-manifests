@@ -29,7 +29,7 @@ locals {
     instance_types  = [var.node_instance_type]
     min_size        = 1
     desired_size    = 1
-    max_size        = 3
+    max_size        = 1
     disk_size       = var.node_disk_size_cpu
     subnet_ids      = module.vpc.private_subnets
   }
@@ -39,7 +39,7 @@ locals {
     instance_types  = [var.node_instance_type]
     capacity_type   = "SPOT"
     min_size        = 1
-    desired_size    = 3
+    desired_size    = 2
     max_size        = 4
     disk_size       = var.node_disk_size_cpu
     subnet_ids      = module.vpc.private_subnets
@@ -48,9 +48,9 @@ locals {
   managed_node_group_gpu = local.using_gpu ? {
     node_group_name = "managed-ondemand-gpu"
     instance_types  = [var.node_instance_type_gpu]
-    min_size        = 3
-    desired_size    = 3
-    max_size        = 5
+    min_size        = 1
+    desired_size    = 1
+    max_size        = 1
     ami_type        = "AL2_x86_64_GPU"
     disk_size       = var.node_disk_size_gpu
     subnet_ids      = module.vpc.private_subnets
