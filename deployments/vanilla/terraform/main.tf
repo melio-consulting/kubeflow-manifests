@@ -27,9 +27,9 @@ locals {
   managed_node_group_cpu = {
     node_group_name = "managed-ondemand-cpu"
     instance_types  = [var.node_instance_type]
-    min_size        = 1
-    desired_size    = 1
-    max_size        = 1
+    min_size        = 0
+    desired_size    = 0
+    max_size        = 4
     disk_size       = var.node_disk_size_cpu
     subnet_ids      = module.vpc.private_subnets
   }
@@ -38,7 +38,18 @@ locals {
     node_group_name = "managed-spot-cpu"
     instance_types  = [var.node_instance_type]
     capacity_type   = "SPOT"
-    min_size        = 1
+    min_size        = 0
+    desired_size    = 2
+    max_size        = 4
+    disk_size       = var.node_disk_size_cpu
+    subnet_ids      = module.vpc.private_subnets
+  }
+
+    managed_node_group_cpu_mixed_spot = {
+    node_group_name = "managed-mixed-spot-cpu"
+    instance_types  = ["m5.large","m6i.large","m7i.large"]
+    capacity_type   = "SPOT"
+    min_size        = 0
     desired_size    = 2
     max_size        = 4
     disk_size       = var.node_disk_size_cpu
@@ -48,7 +59,7 @@ locals {
   managed_node_group_gpu = local.using_gpu ? {
     node_group_name = "managed-ondemand-gpu"
     instance_types  = [var.node_instance_type_gpu]
-    min_size        = 1
+    min_size        = 0
     desired_size    = 1
     max_size        = 1
     ami_type        = "AL2_x86_64_GPU"
@@ -60,6 +71,7 @@ locals {
     mg_cpu = local.managed_node_group_cpu,
     mg_gpu = local.managed_node_group_gpu
     mg_cpu_spot = local.managed_node_group_cpu_spot
+    mg_cpu_mixed_spot = local.managed_node_group_cpu_mixed_spot
 
   }
 
