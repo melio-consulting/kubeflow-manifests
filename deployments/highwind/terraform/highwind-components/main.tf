@@ -30,6 +30,20 @@ data "aws_iam_role" "user_namespace_irsa_iam_role" {
   depends_on = [module.user_namespace_irsa]
 }
 
+module "kubeflow_secrets_manager_irsa" {
+  source                            = "github.com/aws-ia/terraform-aws-eks-blueprints//modules/irsa?ref=v4.32.1"
+  kubernetes_namespace              = kubernetes_namespace.kubeflow.metadata[0].name
+  create_kubernetes_namespace       = false
+  create_kubernetes_service_account = true
+  kubernetes_service_account        = "kubeflow-secrets-manager-sa"
+  irsa_iam_role_name                = format("%s-%s-%s-%s", "kf-secrets-manager", "irsa", var.addon_context.eks_cluster_id, var.addon_context.aws_region_name)
+  irsa_iam_policies                 = ["arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess", "arn:aws:iam::aws:policy/SecretsManagerReadWrite"]
+  irsa_iam_role_path                = var.addon_context.irsa_iam_role_path
+  irsa_iam_permissions_boundary     = var.addon_context.irsa_iam_permissions_boundary
+  eks_cluster_id                    = var.addon_context.eks_cluster_id
+  eks_oidc_provider_arn             = var.addon_context.eks_oidc_provider_arn
+}
+
 module "kubeflow_pipeline_irsa" {
   count                             = local.use_static ? 0 : 1
   source                            = "github.com/aws-ia/terraform-aws-eks-blueprints//modules/irsa?ref=v4.32.1"
