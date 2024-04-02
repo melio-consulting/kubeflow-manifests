@@ -27,8 +27,8 @@ locals {
   managed_node_group_cpu = {
     node_group_name = "managed-ondemand-cpu"
     instance_types  = [var.node_instance_type]
-    min_size        = 1
-    desired_size    = 1
+    min_size        = 0
+    desired_size    = 0
     max_size        = 1
     disk_size       = var.node_disk_size_cpu
     subnet_ids      = module.vpc.private_subnets
@@ -45,13 +45,13 @@ locals {
     subnet_ids      = module.vpc.private_subnets
   }
 
-    managed_node_group_cpu_mixed_spot = {
+  managed_node_group_cpu_mixed_spot = {
     node_group_name = "managed-mixed-spot-cpu"
-    instance_types  = ["m5.large","m6i.large","m7i.large"]
+    instance_types  = ["m5.large", "m6i.large", "m7i.large"]
     capacity_type   = "SPOT"
-    min_size        = 3
-    desired_size    = 3
-    max_size        = 3
+    min_size        = 5
+    desired_size    = 5
+    max_size        = 5
     disk_size       = var.node_disk_size_cpu
     subnet_ids      = module.vpc.private_subnets
   }
@@ -68,9 +68,9 @@ locals {
   } : null
 
   potential_managed_node_groups = {
-    mg_cpu = local.managed_node_group_cpu,
-    mg_gpu = local.managed_node_group_gpu
-    mg_cpu_spot = local.managed_node_group_cpu_spot
+    mg_cpu            = local.managed_node_group_cpu,
+    mg_gpu            = local.managed_node_group_gpu
+    mg_cpu_spot       = local.managed_node_group_cpu_spot
     mg_cpu_mixed_spot = local.managed_node_group_cpu_mixed_spot
 
   }
@@ -230,7 +230,7 @@ module "eks_blueprints_outputs" {
 }
 
 module "kubeflow_components" {
-  source = "./vanilla-components"
+  source = "./highwind-components"
 
   kf_helm_repo_path              = local.kf_helm_repo_path
   addon_context                  = module.eks_blueprints_outputs.addon_context
@@ -238,6 +238,8 @@ module "kubeflow_components" {
   notebook_enable_culling        = var.notebook_enable_culling
   notebook_cull_idle_time        = var.notebook_cull_idle_time
   notebook_idleness_check_period = var.notebook_idleness_check_period
+  use_s3                         = var.use_s3
+  pipeline_s3_credential_option  = var.pipeline_s3_credential_option
 
 
   tags = local.tags
