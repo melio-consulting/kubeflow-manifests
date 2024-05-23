@@ -23,6 +23,47 @@ locals {
 
   kf_helm_repo_path = var.kf_helm_repo_path
 
+  managed_node_group_highwind_cpu_on_demand = {
+    node_group_name = "highwind-on-demand"
+    instance_types  = ["m5i.large", "m6i.large", "m7i.large"]
+    min_size        = 3
+    desired_size    = 3
+    max_size        = 3
+    disk_size       = 150 # GB var.node_disk_size_cpu
+    subnet_ids      = module.vpc.private_subnets
+  }
+
+  managed_node_group_workload_spot = {
+    node_group_name = "workload-spot"
+    instance_types  = ["m5i.large", "m6i.large", "m7i.large"]
+    capacity_type   = "SPOT"
+    min_size        = 2
+    desired_size    = 2
+    max_size        = 2
+    disk_size       = 150 # GB var.node_disk_size_cpu
+    subnet_ids      = module.vpc.private_subnets
+  }
+
+  managed_node_group_core_system_cpu_on_demand = {
+    node_group_name = "core-system-on-demand"
+    instance_types  = ["m5i.large", "m6i.large", "m7i.large"]
+    min_size        = 3
+    desired_size    = 3
+    max_size        = 3
+    disk_size       = 150 # GB var.node_disk_size_cpu
+    subnet_ids      = module.vpc.private_subnets
+  }
+
+  managed_node_group_core_system_cpu_spot = {
+    node_group_name = "core-system-on-demand"
+    instance_types  = ["m5i.large", "m6i.large", "m7i.large"]
+    capacity_type   = "SPOT"
+    min_size        = 2
+    desired_size    = 2
+    max_size        = 2
+    disk_size       = 150 # GB var.node_disk_size_cpu
+    subnet_ids      = module.vpc.private_subnets
+  }
 
   managed_node_group_cpu = {
     node_group_name = "managed-ondemand-cpu"
@@ -30,17 +71,6 @@ locals {
     min_size        = 4
     desired_size    = 4
     max_size        = 4
-    disk_size       = var.node_disk_size_cpu
-    subnet_ids      = module.vpc.private_subnets
-  }
-
-  managed_node_group_cpu_spot = {
-    node_group_name = "managed-spot-cpu"
-    instance_types  = [var.node_instance_type]
-    capacity_type   = "SPOT"
-    min_size        = 0
-    desired_size    = 0
-    max_size        = 1
     disk_size       = var.node_disk_size_cpu
     subnet_ids      = module.vpc.private_subnets
   }
@@ -68,11 +98,13 @@ locals {
   } : null
 
   potential_managed_node_groups = {
-    mg_cpu            = local.managed_node_group_cpu,
-    mg_gpu            = local.managed_node_group_gpu
-    mg_cpu_spot       = local.managed_node_group_cpu_spot
-    mg_cpu_mixed_spot = local.managed_node_group_cpu_mixed_spot
-
+    mg_cpu                = local.managed_node_group_cpu
+    mg_gpu                = local.managed_node_group_gpu
+    mg_cpu_mixed_spot     = local.managed_node_group_cpu_mixed_spot
+    mg_hw_on_demand       = local.managed_node_group_highwind_cpu_on_demand
+    mg_workload_spot      = local.managed_node_group_workload_spot
+    mg_core_sys_on_demand = local.managed_node_group_core_system_cpu_on_demand
+    mg_core_sys_spot      = local.managed_node_group_core_system_cpu_spot
   }
 
   managed_node_groups = { for k, v in local.potential_managed_node_groups : k => v if v != null }
