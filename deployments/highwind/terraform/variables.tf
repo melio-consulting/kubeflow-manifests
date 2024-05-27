@@ -228,7 +228,7 @@ variable "highwind_cpu_on_demand_config" {
     desired        = 0
     max            = 1
     instance_types = ["m5.large", "m6i.large", "m7i.large"]
-    disk_size      = 150
+    disk_size      = 150 # GB
   }
 }
 
