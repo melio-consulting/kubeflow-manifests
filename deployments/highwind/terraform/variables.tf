@@ -213,3 +213,75 @@ variable "notebook_idleness_check_period" {
   type        = string
   default     = 5
 }
+
+variable "highwind_cpu_on_demand_config" {
+  description = "EKS node group highwind-on-demand configuration"
+  type = object({
+    min            = number
+    desired        = number
+    max            = number
+    instance_types = list(string)
+    disk_size      = number
+  })
+  default = {
+    min            = 0
+    desired        = 0
+    max            = 1
+    instance_types = ["m5.large", "m6i.large", "m7i.large"]
+    disk_size      = 150 # GB
+  }
+}
+
+variable "workload_spot_config" {
+  description = "EKS node group workload-spot configuration"
+  type = object({
+    min            = number
+    desired        = number
+    max            = number
+    instance_types = list(string)
+    disk_size      = number
+  })
+  default = {
+    min            = 0
+    desired        = 0
+    max            = 1
+    instance_types = ["m5.xlarge", "m6i.xlarge", "m7i.xlarge"]
+    disk_size      = 150
+  }
+}
+
+variable "core_system_cpu_on_demand_config" {
+  description = "EKS node group core-system-on-demand configuration"
+  type = object({
+    min            = number
+    desired        = number
+    max            = number
+    instance_types = list(string)
+    disk_size      = number
+  })
+  default = {
+    min            = 0
+    desired        = 0
+    max            = 1
+    instance_types = ["m5.large", "m6i.large", "m7i.large"]
+    disk_size      = 150
+  }
+}
+
+variable "core_system_cpu_spot_config" {
+  description = "EKS node group core-system-spot configuration"
+  type = object({
+    min            = number
+    desired        = number
+    max            = number
+    instance_types = list(string)
+    disk_size      = number
+  })
+  default = {
+    min            = 0
+    desired        = 0
+    max            = 1
+    instance_types = ["m5.large", "m6i.large", "m7i.large"]
+    disk_size      = 150
+  }
+}
