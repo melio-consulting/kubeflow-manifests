@@ -213,3 +213,55 @@ variable "notebook_idleness_check_period" {
   type        = string
   default     = 5
 }
+
+variable "highwind_cpu_on_demand_sizing" {
+  type = object({
+    min     = number
+    desired = number
+    max     = number
+  })
+  default = {
+    min     = 0
+    desired = 0
+    max     = 1
+  }
+}
+
+variable "workload_spot_sizing" {
+  type = object({
+    min     = number
+    desired = number
+    max     = number
+  })
+  default = {
+    min     = 0
+    desired = 0
+    max     = 1
+  }
+}
+
+variable "core_system_cpu_on_demand_sizing" {
+  type = object({
+    min     = number
+    desired = number
+    max     = number
+  })
+  default = {
+    min     = 0
+    desired = 0
+    max     = 1
+  }
+}
+
+variable "core_system_cpu_spot_sizing" {
+  type = object({
+    min     = number
+    desired = number
+    max     = number
+  })
+  default = {
+    min     = 0
+    desired = 0
+    max     = 1
+  }
+}
