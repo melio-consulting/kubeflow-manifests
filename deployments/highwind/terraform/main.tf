@@ -25,43 +25,41 @@ locals {
 
   managed_node_group_highwind_cpu_on_demand = {
     node_group_name = "highwind-on-demand"
-    instance_types  = ["m5.large", "m6i.large", "m7i.large"]
-    min_size        = 3
-    desired_size    = 3
-    max_size        = 3
-    disk_size       = 150 # GB var.node_disk_size_cpu
+    instance_types  = var.highwind_cpu_on_demand_config.instance_types
+    min_size        = var.highwind_cpu_on_demand_config.min
+    desired_size    = var.highwind_cpu_on_demand_config.desired
+    max_size        = var.highwind_cpu_on_demand_config.max
+    disk_size       = var.highwind_cpu_on_demand_config.disk_size
     subnet_ids      = module.vpc.private_subnets
   }
 
   managed_node_group_workload_spot = {
     node_group_name = "workload-spot"
-    instance_types  = ["m5.xlarge", "m6i.xlarge", "m7i.xlarge"]
-    capacity_type   = "SPOT"
-    min_size        = 2
-    desired_size    = 2
-    max_size        = 2
-    disk_size       = 150 # GB var.node_disk_size_cpu
+    instance_types  = var.workload_spot_config.instance_types
+    min_size        = var.workload_spot_config.min
+    desired_size    = var.workload_spot_config.desired
+    max_size        = var.workload_spot_config.max
+    disk_size       = var.workload_spot_config.disk_size
     subnet_ids      = module.vpc.private_subnets
   }
 
   managed_node_group_core_system_cpu_on_demand = {
     node_group_name = "core-system-on-demand"
-    instance_types  = ["m5.large", "m6i.large", "m7i.large"]
-    min_size        = 3
-    desired_size    = 3
-    max_size        = 3
-    disk_size       = 150 # GB var.node_disk_size_cpu
+    instance_types  = var.core_system_cpu_on_demand_config.instance_types
+    min_size        = var.core_system_cpu_on_demand_config.min
+    desired_size    = var.core_system_cpu_on_demand_config.desired
+    max_size        = var.core_system_cpu_on_demand_config.max
+    disk_size       = var.core_system_cpu_on_demand_config.disk_size
     subnet_ids      = module.vpc.private_subnets
   }
 
   managed_node_group_core_system_cpu_spot = {
     node_group_name = "core-system-on-demand"
-    instance_types  = ["m5.large", "m6i.large", "m7i.large"]
-    capacity_type   = "SPOT"
-    min_size        = 2
-    desired_size    = 2
-    max_size        = 2
-    disk_size       = 150 # GB var.node_disk_size_cpu
+    instance_types  = var.core_system_cpu_spot_config.instance_types
+    min_size        = var.core_system_cpu_spot_config.min
+    desired_size    = var.core_system_cpu_spot_config.desired
+    max_size        = var.core_system_cpu_spot_config.max
+    disk_size       = var.core_system_cpu_spot_config.disk_size
     subnet_ids      = module.vpc.private_subnets
   }
 
