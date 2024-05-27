@@ -54,7 +54,7 @@ locals {
   }
 
   managed_node_group_core_system_cpu_spot = {
-    node_group_name = "core-system-on-demand"
+    node_group_name = "core-system-spot"
     instance_types  = var.core_system_cpu_spot_config.instance_types
     min_size        = var.core_system_cpu_spot_config.min
     desired_size    = var.core_system_cpu_spot_config.desired
