@@ -215,6 +215,7 @@ variable "notebook_idleness_check_period" {
 }
 
 variable "highwind_cpu_on_demand_config" {
+  description = "EKS node group highwind-on-demand configuration"
   type = object({
     min            = number
     desired        = number
@@ -232,6 +233,7 @@ variable "highwind_cpu_on_demand_config" {
 }
 
 variable "workload_spot_config" {
+  description = "EKS node group workload-spot configuration"
   type = object({
     min            = number
     desired        = number
@@ -249,6 +251,7 @@ variable "workload_spot_config" {
 }
 
 variable "core_system_cpu_on_demand_config" {
+  description = "EKS node group core-system-on-demand configuration"
   type = object({
     min            = number
     desired        = number
@@ -266,6 +269,7 @@ variable "core_system_cpu_on_demand_config" {
 }
 
 variable "core_system_cpu_spot_config" {
+  description = "EKS node group core-system-spot configuration"
   type = object({
     min            = number
     desired        = number
