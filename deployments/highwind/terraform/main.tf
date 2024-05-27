@@ -25,7 +25,7 @@ locals {
 
   managed_node_group_highwind_cpu_on_demand = {
     node_group_name = "highwind-on-demand"
-    instance_types  = ["m5i.large", "m6i.large", "m7i.large"]
+    instance_types  = ["m5.large", "m6i.large", "m7i.large"]
     min_size        = 3
     desired_size    = 3
     max_size        = 3
@@ -35,7 +35,7 @@ locals {
 
   managed_node_group_workload_spot = {
     node_group_name = "workload-spot"
-    instance_types  = ["m5i.large", "m6i.large", "m7i.large"]
+    instance_types  = ["m5.xlarge", "m6i.xlarge", "m7i.xlarge"]
     capacity_type   = "SPOT"
     min_size        = 2
     desired_size    = 2
@@ -46,7 +46,7 @@ locals {
 
   managed_node_group_core_system_cpu_on_demand = {
     node_group_name = "core-system-on-demand"
-    instance_types  = ["m5i.large", "m6i.large", "m7i.large"]
+    instance_types  = ["m5.large", "m6i.large", "m7i.large"]
     min_size        = 3
     desired_size    = 3
     max_size        = 3
@@ -56,7 +56,7 @@ locals {
 
   managed_node_group_core_system_cpu_spot = {
     node_group_name = "core-system-on-demand"
-    instance_types  = ["m5i.large", "m6i.large", "m7i.large"]
+    instance_types  = ["m5.large", "m6i.large", "m7i.large"]
     capacity_type   = "SPOT"
     min_size        = 2
     desired_size    = 2
