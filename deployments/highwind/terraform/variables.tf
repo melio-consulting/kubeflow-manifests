@@ -219,7 +219,7 @@ variable "highwind_cpu_on_demand_config" {
     min            = number
     desired        = number
     max            = number
-    instance_types = string
+    instance_types = list(string)
     disk_size      = number
   })
   default = {
@@ -236,7 +236,7 @@ variable "workload_spot_config" {
     min            = number
     desired        = number
     max            = number
-    instance_types = string
+    instance_types = list(string)
     disk_size      = number
   })
   default = {
@@ -253,7 +253,7 @@ variable "core_system_cpu_on_demand_config" {
     min            = number
     desired        = number
     max            = number
-    instance_types = string
+    instance_types = list(string)
     disk_size      = number
   })
   default = {
@@ -270,7 +270,7 @@ variable "core_system_cpu_spot_config" {
     min            = number
     desired        = number
     max            = number
-    instance_types = string
+    instance_types = list(string)
     disk_size      = number
   })
   default = {
