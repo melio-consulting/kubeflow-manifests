@@ -214,54 +214,70 @@ variable "notebook_idleness_check_period" {
   default     = 5
 }
 
-variable "highwind_cpu_on_demand_sizing" {
+variable "highwind_cpu_on_demand_config" {
   type = object({
-    min     = number
-    desired = number
-    max     = number
+    min            = number
+    desired        = number
+    max            = number
+    instance_types = string
+    disk_size      = number
   })
   default = {
-    min     = 0
-    desired = 0
-    max     = 1
+    min            = 0
+    desired        = 0
+    max            = 1
+    instance_types = ["m5.large", "m6i.large", "m7i.large"]
+    disk_size      = 150
   }
 }
 
-variable "workload_spot_sizing" {
+variable "workload_spot_config" {
   type = object({
-    min     = number
-    desired = number
-    max     = number
+    min            = number
+    desired        = number
+    max            = number
+    instance_types = string
+    disk_size      = number
   })
   default = {
-    min     = 0
-    desired = 0
-    max     = 1
+    min            = 0
+    desired        = 0
+    max            = 1
+    instance_types = ["m5.xlarge", "m6i.xlarge", "m7i.xlarge"]
+    disk_size      = 150
   }
 }
 
-variable "core_system_cpu_on_demand_sizing" {
+variable "core_system_cpu_on_demand_config" {
   type = object({
-    min     = number
-    desired = number
-    max     = number
+    min            = number
+    desired        = number
+    max            = number
+    instance_types = string
+    disk_size      = number
   })
   default = {
-    min     = 0
-    desired = 0
-    max     = 1
+    min            = 0
+    desired        = 0
+    max            = 1
+    instance_types = ["m5.large", "m6i.large", "m7i.large"]
+    disk_size      = 150
   }
 }
 
-variable "core_system_cpu_spot_sizing" {
+variable "core_system_cpu_spot_config" {
   type = object({
-    min     = number
-    desired = number
-    max     = number
+    min            = number
+    desired        = number
+    max            = number
+    instance_types = string
+    disk_size      = number
   })
   default = {
-    min     = 0
-    desired = 0
-    max     = 1
+    min            = 0
+    desired        = 0
+    max            = 1
+    instance_types = ["m5.large", "m6i.large", "m7i.large"]
+    disk_size      = 150
   }
 }
