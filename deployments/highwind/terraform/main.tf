@@ -65,42 +65,7 @@ locals {
     subnet_ids      = module.vpc.private_subnets
   }
 
-  managed_node_group_cpu = {
-    node_group_name = "managed-ondemand-cpu"
-    instance_types  = [var.node_instance_type]
-    min_size        = 4
-    desired_size    = 4
-    max_size        = 4
-    disk_size       = var.node_disk_size_cpu
-    subnet_ids      = module.vpc.private_subnets
-  }
-
-  managed_node_group_cpu_mixed_spot = {
-    node_group_name = "managed-mixed-spot-cpu"
-    instance_types  = ["m5.large", "m6i.large", "m7i.large"]
-    capacity_type   = "SPOT"
-    min_size        = 5
-    desired_size    = 5
-    max_size        = 5
-    disk_size       = var.node_disk_size_cpu
-    subnet_ids      = module.vpc.private_subnets
-  }
-
-  managed_node_group_gpu = local.using_gpu ? {
-    node_group_name = "managed-ondemand-gpu"
-    instance_types  = [var.node_instance_type_gpu]
-    min_size        = 0
-    desired_size    = 0
-    max_size        = 1
-    ami_type        = "AL2_x86_64_GPU"
-    disk_size       = var.node_disk_size_gpu
-    subnet_ids      = module.vpc.private_subnets
-  } : null
-
   potential_managed_node_groups = {
-    mg_cpu                = local.managed_node_group_cpu
-    mg_gpu                = local.managed_node_group_gpu
-    mg_cpu_mixed_spot     = local.managed_node_group_cpu_mixed_spot
     mg_hw_on_demand       = local.managed_node_group_highwind_cpu_on_demand
     mg_workload_spot      = local.managed_node_group_workload_spot
     mg_core_sys_on_demand = local.managed_node_group_core_system_cpu_on_demand
