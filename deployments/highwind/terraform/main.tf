@@ -23,10 +23,10 @@ locals {
 
   kf_helm_repo_path = var.kf_helm_repo_path
 
-  # https://registry.terraform.io/modules/terraform-aws-modules/eks/aws/latest/submodules/eks-managed-node-group
+  # https://github.com/aws-ia/terraform-aws-eks-blueprints/blob/v4.32.1/modules/aws-eks-managed-node-groups/locals.tf
   managed_node_group_highwind_cpu_on_demand = {
     node_group_name = "highwind-on-demand"
-    labels = {
+    k8s_labels = {
       node-group-common-name = "highwind-on-demand"
     }
     instance_types  = var.highwind_cpu_on_demand_config.instance_types
@@ -39,7 +39,7 @@ locals {
 
   managed_node_group_workload_spot = {
     node_group_name = "workload-spot"
-    labels = {
+    k8s_labels = {
       node-group-common-name = "workload-spot"
     }
     capacity_type   = "SPOT"
@@ -53,7 +53,7 @@ locals {
 
   managed_node_group_core_system_cpu_on_demand = {
     node_group_name = "core-system-on-demand"
-    labels = {
+    k8s_labels = {
       node-group-common-name = "core-system-on-demand"
     }
     instance_types  = var.core_system_cpu_on_demand_config.instance_types
@@ -66,7 +66,7 @@ locals {
 
   managed_node_group_core_system_cpu_spot = {
     node_group_name = "core-system-spot"
-    labels = {
+    k8s_labels = {
       node-group-common-name = "core-system-spot"
     }
     capacity_type   = "SPOT"
