@@ -23,8 +23,13 @@ locals {
 
   kf_helm_repo_path = var.kf_helm_repo_path
 
+  # managed node group reference:
+  #   https://github.com/aws-ia/terraform-aws-eks-blueprints/blob/v4.32.1/modules/aws-eks-managed-node-groups/locals.tf
   managed_node_group_highwind_cpu_on_demand = {
     node_group_name = "highwind-on-demand"
+    k8s_labels = {
+      node-group-common-name = "highwind-on-demand"
+    }
     instance_types  = var.highwind_cpu_on_demand_config.instance_types
     min_size        = var.highwind_cpu_on_demand_config.min
     desired_size    = var.highwind_cpu_on_demand_config.desired
@@ -35,6 +40,9 @@ locals {
 
   managed_node_group_workload_spot = {
     node_group_name = "workload-spot"
+    k8s_labels = {
+      node-group-common-name = "workload-spot"
+    }
     capacity_type   = "SPOT"
     instance_types  = var.workload_spot_config.instance_types
     min_size        = var.workload_spot_config.min
@@ -46,6 +54,9 @@ locals {
 
   managed_node_group_core_system_cpu_on_demand = {
     node_group_name = "core-system-on-demand"
+    k8s_labels = {
+      node-group-common-name = "core-system-on-demand"
+    }
     instance_types  = var.core_system_cpu_on_demand_config.instance_types
     min_size        = var.core_system_cpu_on_demand_config.min
     desired_size    = var.core_system_cpu_on_demand_config.desired
@@ -56,6 +67,9 @@ locals {
 
   managed_node_group_core_system_cpu_spot = {
     node_group_name = "core-system-spot"
+    k8s_labels = {
+      node-group-common-name = "core-system-spot"
+    }
     capacity_type   = "SPOT"
     instance_types  = var.core_system_cpu_spot_config.instance_types
     min_size        = var.core_system_cpu_spot_config.min
