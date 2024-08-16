@@ -23,7 +23,8 @@ locals {
 
   kf_helm_repo_path = var.kf_helm_repo_path
 
-  # https://github.com/aws-ia/terraform-aws-eks-blueprints/blob/v4.32.1/modules/aws-eks-managed-node-groups/locals.tf
+  # managed node group reference:
+  #   https://github.com/aws-ia/terraform-aws-eks-blueprints/blob/v4.32.1/modules/aws-eks-managed-node-groups/locals.tf
   managed_node_group_highwind_cpu_on_demand = {
     node_group_name = "highwind-on-demand"
     k8s_labels = {
