@@ -41,7 +41,7 @@ locals {
   managed_node_group_workload_spot = {
     node_group_name = "workload-spot"
     k8s_labels = {
-      node-group-common-name = "workload-spot"
+      node-group-common-name = "client-workload-spot"
     }
     capacity_type   = "SPOT"
     instance_types  = var.workload_spot_config.instance_types
@@ -68,7 +68,7 @@ locals {
   managed_node_group_core_system_cpu_spot = {
     node_group_name = "core-system-spot"
     k8s_labels = {
-      node-group-common-name = "core-system-spot"
+      node-group-common-name = "extra-capacity-spot"
     }
     capacity_type   = "SPOT"
     instance_types  = var.core_system_cpu_spot_config.instance_types
